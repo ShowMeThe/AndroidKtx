@@ -1,3 +1,4 @@
+include ':view-ktx'
 include ':span-ktx'
 include ':app'
 rootProject.name = "AndroidKtx"
