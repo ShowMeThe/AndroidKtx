@@ -108,7 +108,7 @@ bintray {
     key = password
     pkg {
         repo = 'AndroidKtx'
-        name = 'Span'
+        name = 'Span-ktx'
         version("0.0.1")
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/ShowMeThe/AndroidKtx.git'

@@ -1,3 +1,4 @@
+include ':string-ktx'
 include ':view-ktx'
 include ':span-ktx'
 include ':app'

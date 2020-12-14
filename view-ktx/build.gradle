@@ -50,7 +50,7 @@ if (project.hasProperty("kotlin")) { //Kotlin libraries
     task javadoc(type: Javadoc, dependsOn: dokka) {
 
     }
-} else if (project.hasProperty("android")) { // Android libraries
+}else if (project.hasProperty("android")) { // Android libraries
     task sourcesJar(type: Jar) {
         classifier = 'sources'
         from android.sourceSets.main.java.srcDirs
@@ -99,6 +99,7 @@ sourceSets {
 }
 
 
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
@@ -110,7 +111,7 @@ bintray {
     key = password
     pkg {
         repo = 'AndroidKtx'
-        name = 'View'
+        name = 'View-ktx'
         version("0.0.1")
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/ShowMeThe/AndroidKtx.git'
@@ -133,4 +134,4 @@ afterEvaluate {
 }
 
 apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.show.androidKtx'
+group='com.show.androidKtx'
