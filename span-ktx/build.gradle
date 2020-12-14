@@ -113,11 +113,11 @@ bintray {
     user = username
     key = password
     pkg {
-        repo = 'Kclock'
-        name = 'Kclock'
-        version("0.0.4")
+        repo = 'AndroidKtx'
+        name = 'Span'
+        version("0.0.1")
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/ShowMeThe/Kclock.git'
+        vcsUrl = 'https://github.com/ShowMeThe/AndroidKtx.git'
     }
     configurations = ['archives']
     publications = ['MyPublication']
@@ -128,7 +128,7 @@ afterEvaluate {
         publications {
             MyPublication(MavenPublication) {
                 from components.release
-                groupId = 'com.show.span'
+                groupId = 'com.show.androidKtx'
                 artifactId = 'span-ktx'
                 version = '0.0.1'
             }
@@ -137,4 +137,4 @@ afterEvaluate {
 }
 
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.show.span'
+group='com.show.androidKtx'
