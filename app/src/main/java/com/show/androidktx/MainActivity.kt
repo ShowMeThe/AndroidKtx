@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        val text = "这是一条测试内容"
+        val text = "测试内容演示Spannable"
 
 
         binding.apply {
 
             tv1.text = text.span.apply {
-                foregroundColor(Color.RED,0..4)
+                foregroundColor(Color.RED,0..7)
 
             }
 
