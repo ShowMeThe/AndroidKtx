@@ -2,6 +2,12 @@
 
 提供各类对于Android常用方法的拓展，提高开发效率 (欢迎Star 和 pull request)
 
+### 如何依赖：  
+在build.gradle的dependencies添加需要的内容:
+```gradle
+implementation 'com.github.ShowMeThe:binding-ktx:1.0.0'
+```
+
 
 ### 主要内容：  
     1、 一行代码实现ViewBinding和DataBinding的使用，并加入生命周期的监听（ViewBinding利用到了反射，已添加混淆内容）  
