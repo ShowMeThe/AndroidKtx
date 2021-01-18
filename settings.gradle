@@ -1,4 +1,4 @@
 include ':binding-ktx'
 include ':span-ktx'
 include ':app'
-rootProject.name = "AndroidKtx"
+rootProject.name = "Android-ktx"

@@ -50,4 +50,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api("androidx.recyclerview:recyclerview:1.2.0-beta01")
     implementation project(":binding-ktx")
+    implementation project(":span-ktx")
 }

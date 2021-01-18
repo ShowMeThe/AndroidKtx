@@ -1,22 +1,36 @@
 package com.show.androidktx
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.show.androidktx.databinding.ActivityMainBinding
 import com.show.binding.BindingProperty
 import com.show.binding.binding
+import com.show.span.foregroundColor
+import com.show.span.span
 
 class MainActivity : AppCompatActivity() {
 
-    var binding by BindingProperty<ActivityMainBinding>()
+    val binding by lazy { binding<ActivityMainBinding>(this,R.layout.activity_main) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = binding(this,R.layout.activity_main)
 
-        binding.tv1.setOnClickListener {
-            Toast.makeText(this,"Click Event",Toast.LENGTH_LONG).show()
+
+        val text = "这是一条测试内容"
+
+
+        binding.apply {
+
+            tv1.text = text.span.apply {
+                foregroundColor(Color.RED,0..4)
+
+            }
+
+
+
+
         }
 
 
