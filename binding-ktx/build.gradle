@@ -122,7 +122,7 @@ bintray {
     pkg {
         repo = 'AndroidKtx'
         name = 'binding-ktx'
-        version("1.0.0")
+        version("1.0.1")
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/ShowMeThe/AndroidKtx.git'
     }
@@ -137,7 +137,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.ShowMeThe'
                 artifactId = 'binding-ktx'
-                version = '1.0.0'
+                version = '1.0.1'
             }
         }
     }

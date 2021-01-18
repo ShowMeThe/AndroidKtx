@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = binding(this,R.layout.activity_main)
 
         binding.tv1.setOnClickListener {
-            Toast.makeText(this,"123123121",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Click Event",Toast.LENGTH_LONG).show()
         }
 
 

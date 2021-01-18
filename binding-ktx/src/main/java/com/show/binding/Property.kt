@@ -3,6 +3,7 @@ package com.show.binding
 import androidx.activity.ComponentActivity
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -19,12 +20,24 @@ class BindingProperty<T : ViewBinding> : ReadWriteProperty<Any, T>,
     private var binding: T? = null
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
         binding = value
-        if(thisRef is LifecycleOwner){
-            if(binding is ViewDataBinding){
+        if (thisRef is LifecycleOwner) {
+            if (binding is ViewDataBinding) {
                 (binding as ViewDataBinding).lifecycleOwner = thisRef
             }
-            thisRef.lifecycle.removeObserver(this)
-            thisRef.lifecycle.addObserver(this)
+            when (thisRef) {
+                is Fragment ->{
+                    thisRef.viewLifecycleOwner.lifecycle.apply {
+                        removeObserver(this@BindingProperty)
+                        addObserver(this@BindingProperty)
+                    }
+                }
+                else -> {
+                    thisRef.lifecycle.apply {
+                        removeObserver(this@BindingProperty)
+                        addObserver(this@BindingProperty)
+                    }
+                }
+            }
         }
     }
 

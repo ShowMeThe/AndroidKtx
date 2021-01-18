@@ -110,8 +110,8 @@ bintray {
     key = password
     pkg {
         repo = 'AndroidKtx'
-        name = 'Span-ktx'
-        version("0.0.1")
+        name = 'span-ktx'
+        version("1.0.0")
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/ShowMeThe/AndroidKtx.git'
     }
@@ -124,13 +124,11 @@ afterEvaluate {
         publications {
             MyPublication(MavenPublication) {
                 from components.release
-                groupId = 'com.show.androidKtx'
+                groupId = 'com.github.ShowMeThe'
                 artifactId = 'span-ktx'
-                version = '0.0.1'
+                version = '1.0.0'
             }
         }
     }
 }
-
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.show.androidKtx'
+group='com.github.ShowMeThe'

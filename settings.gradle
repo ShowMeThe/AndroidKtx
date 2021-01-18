@@ -1,6 +1,4 @@
 include ':binding-ktx'
-include ':string-ktx'
-include ':view-ktx'
 include ':span-ktx'
 include ':app'
 rootProject.name = "AndroidKtx"
