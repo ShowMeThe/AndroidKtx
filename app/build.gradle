@@ -8,6 +8,11 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
 
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId "com.show.androidktx"
         minSdkVersion 21
@@ -45,4 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(":span-ktx")
     implementation project(":view-ktx")
+    api("androidx.recyclerview:recyclerview:1.2.0-beta01")
+    implementation project(":binding-ktx")
 }

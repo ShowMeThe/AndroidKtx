@@ -1,33 +1,23 @@
 package com.show.androidktx
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.interpolator.view.animation.FastOutLinearInInterpolator
-import com.show.view.rotateX
-
-import com.show.view.translateToX
-import com.show.view.translateToXY
-import com.show.view.translateToY
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.time.ExperimentalTime
-import kotlin.time.seconds
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.show.androidktx.databinding.ActivityMainBinding
+import com.show.binding.BindingProperty
+import com.show.binding.binding
 
 class MainActivity : AppCompatActivity() {
-    @ExperimentalTime
+
+    var binding by BindingProperty<ActivityMainBinding>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = binding(this,R.layout.activity_main)
 
-
-
-        tv1.post {
-
-
-
+        binding.tv1.setOnClickListener {
+            Toast.makeText(this,"123123121",Toast.LENGTH_LONG).show()
         }
-
 
 
     }

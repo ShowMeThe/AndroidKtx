@@ -6,26 +6,24 @@ import android.view.ViewTreeObserver
 import com.google.android.material.tabs.TabLayout
 
 
-inline val View.visible get() = apply {  visibility = VISIBLE }
+inline val View.Visible get() = apply {  visibility = VISIBLE }
 
-inline val View.invisible get() = apply {  visibility = INVISIBLE }
+inline val View.Invisible get() = apply {  visibility = INVISIBLE }
 
-inline val View.gone get() = apply {  visibility = GONE }
+inline val View.Gone get() = apply {  visibility = GONE }
 
-inline fun View.setOnSingleClickListener(crossinline onSingleClick : (it: View)->Unit){
+inline fun View.setOnSingleClickListener(intervalTime :Long = 1500L,crossinline onSingleClick : (it: View)->Unit){
     var lastClickTime = 0L
-    val lastLongTime = 1500L
-
     setOnClickListener {
         val time = System.currentTimeMillis()
-        if(time - lastClickTime > lastLongTime){
+        if(time - lastClickTime > intervalTime){
             onSingleClick.invoke(it)
             lastClickTime = time
         }
     }
 }
 
-inline fun <T : View> T.onGlobalLayout(crossinline  onLayout: T.()->Unit){
+inline fun <T : View> T.doOnGlobalLayout(crossinline  onLayout: T.()->Unit){
     if (viewTreeObserver.isAlive) {
         viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -36,18 +34,6 @@ inline fun <T : View> T.onGlobalLayout(crossinline  onLayout: T.()->Unit){
     }
 }
 
-inline fun <T : View> T.onPreDrawLayout(crossinline  onLayout: T.()->Unit){
-    if (viewTreeObserver.isAlive) {
-        viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-
-            override fun onPreDraw(): Boolean {
-                onLayout()
-                viewTreeObserver.removeOnPreDrawListener(this)
-                return false
-            }
-        })
-    }
-}
 
 inline fun TabLayout.onTabSelected(tabSelect: TabSelect.() -> Unit) {
     tabSelect.invoke(TabSelect(this))
@@ -90,3 +76,5 @@ class TabSelect(tab: TabLayout) {
     }
 
 }
+
+
