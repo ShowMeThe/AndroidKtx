@@ -12,12 +12,14 @@
 ```gradle
 implementation 'com.github.ShowMeThe:binding-ktx:1.0.1' //一行代码实现ViewBinding和DataBinding
 implementation 'com.github.ShowMeThe:span-ktx:1.0.0' // SpannableStringBuilder拓展快速编写
+implementation 'com.github.ShowMeThe:livedata-ktx:1.0.0' //LiveData 拓展操作符
 ```
 
 
 ### 主要内容：  
     1、 一行代码实现ViewBinding和DataBinding的使用，并加入生命周期的监听（ViewBinding利用到了反射，已添加混淆内容）  
     2、 对SpannableStringBuilder进行拓展快速编写
+    3、 LiveData 拓展操作符
     
     
 
@@ -108,3 +110,16 @@ class MainActivity : AppCompatActivity() {
 ```  
 效果图：  
 <img src="https://github.com/ShowMeThe/AndroidKtx/blob/master/img/example.jpg" width = 400 alt = "example" />
+### 3、LiveData 拓展操作符
+利用MediatorLiveData实现转换操作,支持filter、map、distinctUntilChanged、debounce
+```kotlin
+            val live = MutableLiveData<String?>()
+            live.filter { !it.isNullOrEmpty() }
+                .map { StringBuilder("Data:").append(it).toString() }
+                .debounce(500)
+                .observe(this@MainActivity) {
+                    Toast.makeText(this@MainActivity, it, Toast.LENGTH_LONG).show()
+                    Log.e("MainActivity", it)
+                }
+
+```
