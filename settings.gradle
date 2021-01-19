@@ -1,3 +1,4 @@
+include ':livedata-ktx'
 include ':binding-ktx'
 include ':span-ktx'
 include ':app'

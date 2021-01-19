@@ -51,4 +51,5 @@ dependencies {
     api("androidx.recyclerview:recyclerview:1.2.0-beta01")
     implementation project(":binding-ktx")
     implementation project(":span-ktx")
+    implementation project(":livedata-ktx")
 }

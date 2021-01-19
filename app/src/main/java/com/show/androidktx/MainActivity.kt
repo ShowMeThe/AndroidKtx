@@ -3,17 +3,23 @@ package com.show.androidktx
 import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import com.show.androidktx.databinding.ActivityMainBinding
 import com.show.binding.BindingProperty
 import com.show.binding.binding
+import com.show.livedataktx.debounce
+import com.show.livedataktx.distinctUntilChanged
+import com.show.livedataktx.filter
+import com.show.livedataktx.map
 import com.show.span.*
 
 class MainActivity : AppCompatActivity() {
 
-    val binding by lazy { binding<ActivityMainBinding>(this,R.layout.activity_main) }
+    val binding by lazy { binding<ActivityMainBinding>(this, R.layout.activity_main) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,22 +33,39 @@ class MainActivity : AppCompatActivity() {
             tv1.movementMethod = LinkMovementMethod.getInstance()
             tv1.setHintTextColor(Color.TRANSPARENT)
             tv1.text = text.span.apply {
-                foregroundColor(Color.RED,0..7)
+                foregroundColor(Color.RED, 0..7)
                 italic(0..2)
-                backgroundColor(Color.LTGRAY,0..3)
+                backgroundColor(Color.LTGRAY, 0..3)
                 underline(0..2)
                 strikeThrough(6..9)
                 bold(2..4)
                 boldItalic(6..9)
-                size(25,0..1)
-                sizeRelative(2f,1..2)
-                val drawable = ContextCompat.getDrawable(this@MainActivity,R.mipmap.ic_launcher_round)
-                drawable!!.setBounds(0,0,drawable.intrinsicHeight,drawable.intrinsicWidth)
-                image(drawable,0..1)
-                click(10..12){
-                    Toast.makeText(this@MainActivity, text,Toast.LENGTH_LONG).show()
+                size(25, 0..1)
+                sizeRelative(2f, 1..2)
+                val drawable =
+                    ContextCompat.getDrawable(this@MainActivity, R.mipmap.ic_launcher_round)
+                drawable!!.setBounds(0, 0, drawable.intrinsicHeight, drawable.intrinsicWidth)
+                image(drawable, 0..1)
+                click(10..12) {
+                    Toast.makeText(this@MainActivity, text, Toast.LENGTH_LONG).show()
                 }
             }
+
+
+            val live = MutableLiveData<String?>()
+
+            live.filter { !it.isNullOrEmpty() }
+                .map { StringBuilder("Data:").append(it).toString() }
+                .debounce(500)
+                .observe(this@MainActivity) {
+                    Toast.makeText(this@MainActivity, it, Toast.LENGTH_LONG).show()
+                    Log.e("MainActivity", it)
+                }
+
+            btn.setOnClickListener {
+                live.value = ed.text.toString()
+            }
+
 
         }
 

@@ -15,5 +15,24 @@
         android:text="123121221"
         />
 
+    <EditText
+        android:id="@+id/ed"
+        android:maxLines="1"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:layout_below="@+id/tv1"
+        android:layout_centerHorizontal="true"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:text="Send"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

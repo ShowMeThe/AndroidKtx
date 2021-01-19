@@ -1,0 +1,135 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'com.jfrog.bintray'
+    id 'maven-publish'
+    id 'org.jetbrains.dokka'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "androidx.lifecycle:lifecycle-extensions:2.0.0"
+}
+
+
+if (project.hasProperty("kotlin")) { //Kotlin libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc, dependsOn: dokka) {
+
+    }
+}else if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+    configuration {
+        externalDocumentationLink {
+            noAndroidSdkLink = true
+            url = new URL("file:D:/lib/AndroidKtx/package-list")
+            packageListUrl = new URL("file:D:/lib/AndroidKtx/package-list")
+        }
+    }
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def username = properties.getProperty('username')
+def password = properties.getProperty('password')
+
+bintray {
+    user = username
+    key = password
+    pkg {
+        repo = 'AndroidKtx'
+        name = 'livedata-ktx'
+        version("1.0.0")
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/ShowMeThe/AndroidKtx.git'
+    }
+    configurations = ['archives']
+    publications = ['MyPublication']
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            MyPublication(MavenPublication) {
+                from components.release
+                groupId = 'com.github.ShowMeThe'
+                artifactId = 'livedata-ktx'
+                version = '1.0.0'
+            }
+        }
+    }
+}
+group='com.github.ShowMeThe'
